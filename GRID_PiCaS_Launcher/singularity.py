@@ -97,6 +97,8 @@ def process_singularity_stderr(stderr):
         if line:
             if 'WARNING' in line:
                 logger.warn(line)
+            elif 'INFO' in line:
+                logger.info(line)
             else:
                 err.append(line)
     return err
