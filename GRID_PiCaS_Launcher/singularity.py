@@ -60,14 +60,20 @@ def parse_singularity_link(simg_url, simg_commit=None):
     :param simg_commit: Optional commit hash for singularity hub
     :type simg_commit: str
     """
-    if simg_url.split("://")[0] == 'shub': #TODO: Check gsi storage if file exists before invoking shub
+    
+    if simg_url.split("://")[0] == 'shub': 
         http_link = convert_shub_to_http(shub_url=simg_url, shub_commit=simg_commit)
-        if check_if_http_sif(http_link):
-            return download_simg_from_http(http_link) 
-        return pull_image_from_shub(simg_url, simg_commit)
+        simg_name_prefix = simg_url.split("/")[3].replace(":", "_")
+        simg_name = "{0}@{1}.sif".format(simg_name_prefix, simg_commit)
+        if os.path.isfile(simg_name):
+            logger.info("Image {0} already exists. Skip downloading ...".format(simg_name))
+            return os.getcwd()+'/'+simg_name
+        elif check_if_http_sif(http_link):
+            return download_simg_from_http(http_link)
+        else: 
+            return pull_image_from_shub(simg_url, simg_commit)
     if simg_url.split("://")[0] == 'gsiftp':
         return download_simg_from_gsiftp(simg_url) #TODO: If hash is given here, still check if it's ok
-    logger.warn("Unknown image location {0}".format(simg_url))
 
 def download_simg_from_gsiftp(simg_link):
     """download_simg_from_gsiftp
@@ -83,6 +89,7 @@ def download_simg_from_gsiftp(simg_link):
         return img_name
     else:
         logger.error("Error downloading image:{0}".format(err))
+
 @retry(Exception, tries=4)
 def download_simg_from_http(simg_link, sif_name=None):
     if not sif_name:
