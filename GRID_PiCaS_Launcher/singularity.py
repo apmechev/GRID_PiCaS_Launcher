@@ -88,7 +88,7 @@ def download_simg_from_gsiftp(simg_link):
                            stderr=subprocess.PIPE)
     out,err = _dl.communicate()
     if not out and not err:
-        return img_name
+        return os.getcwd()+'/'+img_name
     else:
         logger.error("Error downloading image:{0}".format(err))
 
