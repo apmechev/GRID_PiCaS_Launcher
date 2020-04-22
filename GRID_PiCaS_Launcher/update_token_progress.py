@@ -43,7 +43,7 @@ def get_steps(outfile='output'):
     results=[]
     for line in grep_results:
         if len(line)>2:
-            results.append(line.split()[-1])
+            results.append(re.sub('\u001b\[0m','',line.split()[-1]))
     return results
 
 if __name__ == '__main__':
