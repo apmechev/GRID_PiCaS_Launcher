@@ -2,6 +2,7 @@
 #Updates the status of the token from a shell script or another python script
 #
 #=========
+import re
 
 from GRID_PiCaS_Launcher  import couchdb
 import os,sys,time,subprocess
