@@ -74,6 +74,8 @@ class Sandbox(object):
         repository. By default it does so in the current directory. """
         return_dir = os.getcwd()
         checkout_dir_path = checkout_dir
+        print('Checkout directory will be {:s}'.format(checkout_dir))
+        print('Return directory will be {:s}'.format(return_dir))
 
         if not checkout_dir_path:
             checkout_dir_path = tempfile.mkdtemp(prefix=os.getcwd()+'/')
