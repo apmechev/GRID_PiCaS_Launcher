@@ -7,6 +7,7 @@ source /cvmfs/softdrive.nl/lofar_sw/env/current_dysco.sh
 cp *parset $1               2>/dev/null
 tlog info "copying $(*.parset) to $1"
 cp -r  $PWD/prefactor/ $1   2>/dev/null
+cp -r  $PWD/lofar-vlbi/ $1   2>/dev/null
 #TODO: Make this block just a git pull?
 cp *py $1   
 
