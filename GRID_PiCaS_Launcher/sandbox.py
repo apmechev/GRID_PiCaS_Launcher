@@ -103,6 +103,7 @@ class Sandbox(object):
 #                src = os.path.join(checkout_dir_path, f)
 #                dest = os.path.join(return_dir,f)
 #                shutil.copy(src, dest)
+        print('Going back to directory {:s}'.format(return_dir))
         os.chdir(return_dir)
     
     @staticmethod
